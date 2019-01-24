@@ -1,6 +1,7 @@
 package bdTable
 
 import (
+	"bufio"
 	//_ "github.com/jinzhu/gorm/dialects/sqlite"
 	//_"github.com/jinzhu/gorm/dialects/postgres"
 "time"
