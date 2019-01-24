@@ -1,6 +1,7 @@
 package main
 
-func Get_snip_XML() map[string]string {
+//GetSnipXML снипеты для генерации форм
+func GetSnipXML() map[string]string {
 	m := make(map[string]string)
 	m["stylelabel"] ="" 
 	m["ref"] = "<part class='label'>"+
