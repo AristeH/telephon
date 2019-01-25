@@ -1,7 +1,8 @@
 package main
 
-import egui "github.com/alkresin/external"
-
+import (
+	egui "github.com/alkresin/external"
+)
 const (
 	clrBLACK    = 0
 	clrWHITE    = 0xffffff
@@ -89,6 +90,7 @@ func mainform(wx, wy, ww, wh int, wtitle string) {
 }
 
 func buildTree(pTree *egui.Widget) {
+	
 	pTree.SetCallBackProc("onsize", nil, "{|o,x,y|o:Move(,,,y-72)}")
 	egui.InsertNode(pTree, "", "n1", "Справочники", "", nil, nil, "")
 	egui.InsertNode(pTree, "n1", "n1a", "Сотрудники", "", []string{"book.bmp"}, nil, "hwg_msginfo(\"Сотрудники\")")

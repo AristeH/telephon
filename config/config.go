@@ -1,25 +1,21 @@
 package config
 
 import (
+	"database/sql"
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
-
 	egui "github.com/alkresin/external"
 )
-import (
-	"database/sql"
-	//	_ "github.com/nakagami/firebirdsql"
-)
 
-// Config  Таблица конфигурации. Необходимые настрройки для приложения.
+// Config  Таблица конфигурации. Необходимые настройки для приложения.
 type Config struct {
 	DB                              *sql.DB
 	PFontMain, PFontMenu, PFontText *egui.Font
-	GuiInit string
+	GuiInit                         string
 }
 
 // Parametrs  создание подключения к БД
@@ -61,7 +57,6 @@ func SetParametrs() {
 
 	var pIni = &Ini{}
 
-
 	// Check, is a current directory the same, where etutor's files are placed.
 	// If no, try to change it to that one where executable is.
 	sCurrDir, _ := os.Getwd()
@@ -88,19 +83,19 @@ func SetParametrs() {
 	}
 
 	if pIni.FontMain.Family != "" {
-		Parametrs.PFontMain = egui.CreateFont(&egui.Font{Name: "fm",
+		Parametrs.PFontMain = egui.CreateFont(&egui.Font{Name: "fa",
 			Family: pIni.FontMain.Family, Height: pIni.FontMain.Height})
 	} else {
-		Parametrs.PFontMain = egui.CreateFont(&egui.Font{Name: "fm", Family: "Courier New", Height: -19})
+		Parametrs.PFontMain = egui.CreateFont(&egui.Font{Name: "fa", Family: "Courier New", Height: -19})
 	}
 	if pIni.FontMenu.Family != "" {
-		Parametrs.PFontMenu = egui.CreateFont(&egui.Font{Name: "fc",
+		Parametrs.PFontMenu = egui.CreateFont(&egui.Font{Name: "fm",
 			Family: pIni.FontMenu.Family, Height: pIni.FontMenu.Height})
 	} else {
 		Parametrs.PFontMenu = Parametrs.PFontMain
 	}
 	if pIni.FontText.Family != "" {
-		Parametrs.PFontText = egui.CreateFont(&egui.Font{Name: "fc",
+		Parametrs.PFontText = egui.CreateFont(&egui.Font{Name: "ft",
 			Family: pIni.FontText.Family, Height: pIni.FontText.Height})
 	} else {
 		Parametrs.PFontText = Parametrs.PFontMain

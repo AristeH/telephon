@@ -1,12 +1,13 @@
 package department
 
 import (
+	"Telephon/config"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
-	d "database/sql"
 )
+
 // Department структура Подразделения.
 type Department struct {
 	ID     string `json:"УникальныйИдентификатор"`
@@ -19,9 +20,10 @@ type Department struct {
 type Departments struct {
 	Departments []Department `json:"Подразделения"`
 }
+
 // CreateTable Возвращает строку создания таблицы
 func (s Department) CreateTable() string {
-return`
+	return `
 	    CREATE TABLE Department(
 			ID CHAR(36),  
 			Parent CHAR(36),
@@ -32,12 +34,12 @@ return`
 
 // Insert добавляет запись в таблицу
 func (s Department) Insert(р Department) string {
-	z := "UPDATE OR INSERT INTO Department(ID, Parent, Code, Name)"+
-		"VALUES ('" + р.ID + "','" + р.Parent  +"','" + р.Code  +"','" + р.Name  +"')" +
+	z := "UPDATE OR INSERT INTO Department(ID, Parent, Code, Name)" +
+		"VALUES ('" + р.ID + "','" + р.Parent + "','" + р.Code + "','" + р.Name + "')" +
 		"MATCHING(ID);"
 	return z
-		
-} 
+
+}
 
 //Load загрузка должностей из файла
 // структура файла:
@@ -57,8 +59,13 @@ func (s Department) Insert(р Department) string {
 // 		}
 // ]
 // }"
-func (s Department) Load(file string,  db *d.DB ) {
+func (s Department) Load(file string) {
 	var Departments Departments
+
+	var t Node 
+	var m map[string]Node
+
+	db := config.Parametrs.DB
 	jsonFile, err := os.Open(file)
 	defer jsonFile.Close()
 	if err != nil {
@@ -69,5 +76,19 @@ func (s Department) Load(file string,  db *d.DB ) {
 	for i := 0; i < len(Departments.Departments); i++ {
 		z := Department{}.Insert(Departments.Departments[i])
 		db.Exec(z)
+		t.addNode(Departments.Departments[i], m)
 	}
+}
+
+//Node  дерево
+type Node struct {
+	ID    string
+	Name  string
+	ParentID   string
+	Children  []*Node
+}
+
+
+func (f *Node) addNode(dep Department) {
+	f.Children = append(f.Children, &Node{ID : dep.ID,Name: dep.Name, ParentID:dep.Parent})
 }

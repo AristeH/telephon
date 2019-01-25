@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Telephon/datashema/reference/department"
 	"Telephon/config"
 
 	_ "github.com/nakagami/firebirdsql"
@@ -32,11 +33,11 @@ func main() {
 	//	fmt.Println(err)
 	//	ref.People{}.Load("//FIRST/First-0бщая/1c/Сергей Щ/обработки зуп30/uu/sotr.json", db)
 	//	ref.Post{}.Load("//FIRST/First-0бщая/1c/Сергей Щ/обработки зуп30/uu/dolg.json", db)
-	//	ref.Division{}.Load("//FIRST/First-0бщая/1c/Сергей Щ/обработки зуп30/uu/podr.json", db)
+		department.Department{}.Load("//FIRST/First-0бщая/1c/Сергей Щ/обработки зуп30/uu/podr.json")
 
 	if egui.Init(app.GuiInit) != 0 {
 		return
 	}
 	egui.SetImagePath("images/")
-	mainform(100, 100, 800, 700, "Генератор")
+	//mainform(100, 100, 800, 700, "Генератор")
 }
