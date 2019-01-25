@@ -12,18 +12,7 @@ import (
 	egui "github.com/alkresin/external"
 )
 
-const (
-	clrBLACK    = 0
-	clrWHITE    = 0xffffff
-	clrBLUE     = 0xff0000
-	clrGREEN    = 32768
-	clrLGRAY0   = 0xeeeeee
-	clrLGRAY1   = 0xbbbbbb
-	clrLGRAY2   = 0x999999
-	clrLGRAY4   = 0x666666
-	clrLGRAY5   = 0x444444
-	esMULTILINE = 4
-)
+
 
 func main() {
 	var n int
@@ -48,9 +37,6 @@ func main() {
 	if egui.Init(app.GuiInit) != 0 {
 		return
 	}
-	pWindow := &egui.Widget{X: 200, Y: 150, W: -800, H: -600, Title: "Телефоны",
-		Font: app.PFontMain, AProps: map[string]string{"Icon": "etutor"}}
-	egui.InitMainWindow(pWindow)
-	pWindow.Activate()
-	egui.Exit()
+	egui.SetImagePath("images/")
+	mainform(100, 100, 800, 700, "Генератор")
 }
