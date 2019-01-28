@@ -12,7 +12,7 @@ import (
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/transform"
 )
-
+//Loadcode a
 func Loadcode(file string) {
 	db, err := gorm.Open("postgres", "host=localhost user=postgres dbname=telephone sslmode=disable password=1234")
 	//db, err := gorm.Open("sqlite3", "C:\\SQLite\\gorm.db")

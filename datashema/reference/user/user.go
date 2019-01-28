@@ -22,14 +22,14 @@ type Users struct {
 }
 
 // CreateTable Возвращает строку создания таблицы
-func (s People) CreateTable() string {
+func (s User) CreateTable() string {
 	return `
 	 CREATE TABLE People
 		(ID CHAR(36) , Name CHAR(100), Code  CHAR(10));
 		`
 }
 // Insert добавляет запись в таблицу
-func (s People) Insert(р People) string {
+func (s User) Insert(р User) string {
 	z := "UPDATE OR INSERT INTO People(ID, Name, Code)"+
 		"VALUES ('" + р.ID + "','" + р.Name+ "','"+ р.Code  +"')" +
 		"MATCHING(ID);"
@@ -56,7 +56,7 @@ func (s People) Insert(р People) string {
 // 		}
 //  ]
 // }"
-func (s People) Load(file string,  db *d.DB ) {
+func (s User) Load(file string,  db *d.DB ) {
 	var sotrs Sotrs
 	jsonFile, err := os.Open(file)
 	defer jsonFile.Close()
@@ -66,7 +66,7 @@ func (s People) Load(file string,  db *d.DB ) {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &sotrs)
 	for i := 0; i < len(sotrs.Sotrs); i++ {
-		z := People{}.Insert(sotrs.Sotrs[i])
+		z := User{}.Insert(sotrs.Sotrs[i])
 		db.Exec(z)
 	}
 }

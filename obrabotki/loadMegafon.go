@@ -47,6 +47,8 @@ func recordtel(db gorm.DB, y string, Our bool) uint64 {
 	}
 	return tel.ID
 }
+
+// Preopbr a
 func Preopbr(file string) {
 	var tel string
 	var nomerscheta uint64

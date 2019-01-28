@@ -1,11 +1,14 @@
 package reference
 
 import (
+	"Telephon/datashema/reference/operator"
 	"Telephon/config"
 	"Telephon/datashema/reference/department"
+	"Telephon/datashema/reference/hierarchy"
 	"Telephon/datashema/reference/oblast"
 	"Telephon/datashema/reference/people"
-	"Telephon/datashema/reference/post"
+	"Telephon/datashema/reference/post"	
+	"Telephon/datashema/reference/codetel"
 
 	"fmt"
 	"strings"
@@ -34,18 +37,21 @@ func InitRef() {
 		"PEOPLE":     people.People{}.CreateTable(),
 		"DEPARTMENT": department.Department{}.CreateTable(),
 		"POST":       post.Post{}.CreateTable(),
+		"HIERARCHY":  hierarchy.Hierarchy{}.CreateTable(),		
+		"CODETEL":  codetel.Codetel{}.CreateTable(),	
+		"OPERATOR":  operator.Operator{}.CreateTable(),
 	}
 	var (
 		name string
 	)
 
 	rows, err := db.Query("SELECT  RDB$RELATION_NAME  FROM RDB$RELATIONS where (RDB$SYSTEM_FLAG = 0) AND (RDB$RELATION_TYPE = 0)	order by RDB$RELATION_NAME;")
-	n:=0
+	n := 0
 	if err != nil {
 		fmt.Println(err)
 	} else {
 		for rows.Next() {
-			n=n+1
+			n = n + 1
 			if err := rows.Scan(&name); err != nil {
 				fmt.Println(err)
 			}
