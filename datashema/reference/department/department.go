@@ -7,7 +7,7 @@ type Department struct {
 	Name   string `json:"Наименование"`
 	Code   string `json:"Код"`
 	Parent string `json:"Родитель"`
-	Order  int `json:"Order"`
+	WeithB  string `json:"Order"`
 }
 
 // Departments список подразделений
@@ -23,14 +23,14 @@ func (s Department) CreateTable() string {
 			Parent CHAR(36),
 			Code CHAR(10),
 			Name CHAR(150),
-			Order INTEGER);
+			WeithB INTEGER);
 		`
 }
 
 // Insert добавляет запись в таблицу
 func (s Department) Insert(р Department) string {
-	z := "UPDATE OR INSERT INTO Department(ID, Parent, Code, Name)" +
-		"VALUES ('" + р.ID + "','" + р.Parent + "','" + р.Code + "','" + р.Name + "')" +
+	z := "UPDATE OR INSERT INTO Department(ID, Parent, Code, Name, WeithB)" +
+		"VALUES ('" + р.ID + "','" + р.Parent + "','" + р.Code + "','" + р.Name+ "','"+ р.WeithB + "')" +
 		"MATCHING(ID);"
 	return z
 

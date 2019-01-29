@@ -13,11 +13,11 @@ type Codetel struct {
 // CreateTable Возвращает строку создания таблицы
 func (s Codetel) CreateTable() string {
 	return "CREATE TABLE" +
-	    		"Codetel(ID CHAR(36)," +
-				"Name CHAR(50)," + 
+	    		" Codetel(ID CHAR(36)," +
+				" Name CHAR(50)," + 
 			   " Code CHAR(50)," + 
-				"IDoperator CHAR(36)," +
+				" IDoperator CHAR(36)," +
 			   " IDregion CHAR(36), " +
-			    "S CHAR(9)," +
+			    " S CHAR(9)," +
 			   " Po CHAR(9));"
 }

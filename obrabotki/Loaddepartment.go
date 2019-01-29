@@ -3,11 +3,12 @@ package obrabotki
 import (
 	"Telephon/config"
 	"Telephon/datashema/reference/department"
-		"encoding/json"
-		"fmt"
-		"io/ioutil"
-		"os"
-	)
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"strconv"
+)
 
 //LoadDepartment загрузка должностей из файла
 // структура файла:
@@ -38,7 +39,11 @@ func LoadDepartment(file string) {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &Departments)
 	for i := 0; i < len(Departments.Departments); i++ {
+		Departments.Departments[i].WeithB = strconv.Itoa(i)
 		z := department.Department{}.Insert(Departments.Departments[i])
-		db.Exec(z)
+		_,err := db.Exec(z)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 }
