@@ -7,6 +7,7 @@ type Department struct {
 	Name   string `json:"Наименование"`
 	Code   string `json:"Код"`
 	Parent string `json:"Родитель"`
+	Order  int `json:"Order"`
 }
 
 // Departments список подразделений
@@ -21,7 +22,8 @@ func (s Department) CreateTable() string {
 			ID CHAR(36),  
 			Parent CHAR(36),
 			Code CHAR(10),
-			Name CHAR(150));
+			Name CHAR(150),
+			Order INTEGER);
 		`
 }
 

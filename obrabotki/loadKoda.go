@@ -1,5 +1,5 @@
 package obrabotki
-
+/* 
 import (
 	ref "Telephon/datashema/reference"
 	"bufio"
@@ -55,4 +55,4 @@ func Loadcode(file string) {
 		cd := ref.Codetel{}
 		db.FirstOrCreate(&cd, ref.Codetel{Code: line[0], S: strings.TrimSpace(strings.Trim(line[1], "/'")), Po: strings.TrimSpace(strings.Trim(line[2], "/'")), IDregion: reg.ID, IDoperator: oper.ID})
 	}
-}
+} */

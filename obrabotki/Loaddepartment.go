@@ -1,16 +1,15 @@
 package obrabotki
 
 import (
+	"Telephon/config"
 	"Telephon/datashema/reference/department"
-
 		"encoding/json"
 		"fmt"
 		"io/ioutil"
 		"os"
-		d "database/sql"
 	)
 
-//Load загрузка должностей из файла
+//LoadDepartment загрузка должностей из файла
 // структура файла:
 // "{
 // "Подразделения": [
@@ -28,12 +27,8 @@ import (
 // 		}
 // ]
 // }"
-func (s Department) Load(file string) {
-	var Departments Departments
-
-	var t Node 
-	var m map[string]Node
-
+func LoadDepartment(file string) {
+	var Departments department.Departments
 	db := config.Parametrs.DB
 	jsonFile, err := os.Open(file)
 	defer jsonFile.Close()
@@ -43,20 +38,7 @@ func (s Department) Load(file string) {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &Departments)
 	for i := 0; i < len(Departments.Departments); i++ {
-		z := Department{}.Insert(Departments.Departments[i])
+		z := department.Department{}.Insert(Departments.Departments[i])
 		db.Exec(z)
 	}
-}
-
-//Node  дерево
-type Node struct {
-	ID    string
-	Name  string
-	ParentID   string
-	Children  []*Node
-}
-
-
-func (f *Node) addNode(dep Department) {
-	f.Children = append(f.Children, &Node{ID : dep.ID,Name: dep.Name, ParentID:dep.Parent})
 }

@@ -1,6 +1,6 @@
 package obrabotki
 
-import (
+/* import (
 	"github.com/jinzhu/gorm"
 	"os"
 	"fmt"
@@ -145,3 +145,4 @@ func Preopbr(file string) {
 		}
 	}
 }
+ */
