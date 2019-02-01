@@ -20,8 +20,10 @@ type Posts struct {
 // CreateTable Возвращает строку создания таблицы
 func (s Post) CreateTable() string {
 	return `
-	 CREATE TABLE Post
-		(ID CHAR(36) , Name CHAR(100));
+	CREATE TABLE POST (
+		ID CHAR(36),
+		NAME CHAR(100)
+	);
 		`
 }
 

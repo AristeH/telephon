@@ -23,9 +23,12 @@ type Sotrs struct {
 // CreateTable Возвращает строку создания таблицы
 func (s People) CreateTable() string {
 	return `
-	 CREATE TABLE People
-		(ID CHAR(36) , Name CHAR(100), Code  CHAR(10));
-		`
+	CREATE TABLE PEOPLE (
+		ID CHAR(36),
+		NAME CHAR(100),
+		CODE CHAR(10)
+	);
+	`
 }
 // Insert добавляет запись в таблицу
 func (s People) Insert(р People) string {

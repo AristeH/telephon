@@ -9,7 +9,10 @@ type Oblast struct {
 //CreateTable Возвращает строку создания таблицы
 func (s Oblast) CreateTable() string {
 	return `
-CREATE TABLE OBLAST
- (ID CHAR(36) , Name CHAR(100));
+	CREATE TABLE OBLAST (
+		ID CHAR(36),
+		NAME CHAR(100)
+	);
+	
  `
 }

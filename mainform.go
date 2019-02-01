@@ -1,8 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"Telephon/config"
 	egui "github.com/alkresin/external"
+	"strings"
 )
+
 const (
 	clrBLACK    = 0
 	clrWHITE    = 0xffffff
@@ -25,7 +29,7 @@ func initStyle() {
 	egui.CreateStyle(&(egui.Style{Name: "stBot", Colors: []int32{clrLGRAY1, clrLGRAY5}, Orient: 1, BorderW: 2, BorderClr: clrLGRAY5}))
 }
 
-/* func initPanelLeft(pWindow *egui.Widget, wx, wy, ww, wh int) *egui.Widget {
+func initPanelLeft(pWindow *egui.Widget, wx, wy, ww, wh int) *egui.Widget {
 	panelleft := pWindow.AddWidget(&egui.Widget{Type: "panel", Name: "lpan", X: wx, Y: wy, W: ww, H: wh,
 		Anchor: egui.A_TOPABS + egui.A_BOTTOMABS})
 	panelleft.AddWidget(&egui.Widget{Type: "paneltop", H: hp,
@@ -39,8 +43,8 @@ func initStyle() {
 	buildTree(pTree)
 	return panelleft
 }
- */
-/* func initPanelRight(pWindow *egui.Widget, wx, wy, ww, wh int) *egui.Widget {
+
+func initPanelRight(pWindow *egui.Widget, wx, wy, ww, wh int) *egui.Widget {
 	var arr = [][]string{{"Наименование", "Name", "строка,250", "ФИО"}, {"Код", "Cod", "строка,50", "Код"}, {"ID", "ID", "строка,36", "GUID"}}
 	panelright := pWindow.AddWidget(&egui.Widget{Type: "panel", Name: "rpan", X: wx, Y: wy, W: ww, H: wh,
 		Anchor: egui.A_TOPABS + egui.A_BOTTOMABS + egui.A_RIGHTABS + egui.A_LEFTABS})
@@ -74,31 +78,59 @@ func initStyle() {
 	Anchor: egui.A_TOPREL + egui.A_BOTTOMREL + egui.A_RIGHTREL + egui.A_LEFTREL})
 	return panelright
 }
- */
+
 func mainform(wx, wy, ww, wh int, wtitle string) {
+	plw := int(ww / 3)
+	ph := wh - hp*2 + 10
 	initStyle()
 	pWindow := &egui.Widget{X: wx, Y: wy, W: ww, H: wh, Title: wtitle, AProps: map[string]string{"Icon": "main"}}
 	egui.InitMainWindow(pWindow)
 	pWindow.AddWidget(&egui.Widget{Type: "paneltop", H: hp, AProps: map[string]string{"HStyle": "stTop"}})
-	// panelleft := initPanelLeft(pWindow, 0, hp, plw, ph)
-	// panelright := initPanelRight(pWindow, plw+2, hp+2, ww-plw-4, ph)
-	//pWindow.AddWidget(&egui.Widget{Type: "splitter", X: plw, Y: int((wh - plw - 2) / 2), W: 8, H: hp, Anchor: egui.A_VERTFIX,
-		//AProps: map[string]string{"ALeft": egui.ToString(panelleft), "ARight": egui.ToString(panelright)}})
+	initPanelLeft(pWindow, 0, hp, plw, ph)
+	//panelright := initPanelRight(pWindow, plw+2, hp+2, ww-plw-4, ph)
+//	pWindow.AddWidget(&egui.Widget{Type: "splitter", X: plw, Y: int((wh - plw - 2) / 2), W: 8, H: hp, Anchor: egui.A_VERTFIX,
+	//	AProps: map[string]string{"ALeft": egui.ToString(panelleft), "ARight": egui.ToString(panelright)}})
 	pWindow.AddWidget(&egui.Widget{Type: "panelbot", H: hp, AProps: map[string]string{"HStyle": "stBot"}})
 	pWindow.Activate()
 	egui.Exit()
 }
 
+
 func buildTree(pTree *egui.Widget) {
-	
+	db := config.Parametrs.DB
+	t := `
+	SELECT ID, PARENT, NAME
+FROM DEPARTMENT
+	`
+	rows, err := db.Query(t)
+	if err != nil {
+		fmt.Println(err)
+	}
 	pTree.SetCallBackProc("onsize", nil, "{|o,x,y|o:Move(,,,y-72)}")
-	egui.InsertNode(pTree, "", "n1", "Справочники", "", nil, nil, "")
-	egui.InsertNode(pTree, "n1", "n1a", "Сотрудники", "", []string{"book.bmp"}, nil, "hwg_msginfo(\"Сотрудники\")")
-	egui.InsertNode(pTree, "n1", "n2b", "Должности", "", []string{"book.bmp"}, nil, "hwg_msginfo(\"Должности\")")
-	egui.InsertNode(pTree, "", "n2", "Документы", "", nil, nil, "")
-	egui.InsertNode(pTree, "n2", "n2a", "Прием", "", nil, nil, "")
-	egui.InsertNode(pTree, "", "n3", "Сведения", "", nil, nil, "")
-	egui.InsertNode(pTree, "n3", "n3", "Документы", "", nil, nil, "")
+	//egui.InsertNode(pTree, "", "n1", "Справочники", "", nil, nil, "")
+	id :=""
+	parent := ""
+	name := ""
+	for rows.Next() {
+		if err := rows.Scan(&id,&parent,&name); err != nil {
+		
+			fmt.Println(err)
+		}
+		if strings.TrimSpace(parent) == "00000000-0000-0000-0000-000000000000" {
+			parent =""
+		}
+		egui.InsertNode(pTree, strings.TrimSpace(parent), strings.TrimSpace(id), strings.TrimSpace(name), "", nil, nil, "")
+	//	fmt.Printf("%s, %s, %s\n", strings.TrimSpace(parent), strings.TrimSpace(id), strings.TrimSpace(name))
+	}
+	defer rows.Close()
+
+	
+	// egui.InsertNode(pTree, "n1", "n1a", "Сотрудники", "", []string{"book.bmp"}, nil, "hwg_msginfo(\"Сотрудники\")")
+	// egui.InsertNode(pTree, "n1", "n2b", "Должности", "", []string{"book.bmp"}, nil, "hwg_msginfo(\"Должности\")")
+	// egui.InsertNode(pTree, "", "n2", "Документы", "", nil, nil, "")
+	// egui.InsertNode(pTree, "n2", "n2a", "Прием", "", nil, nil, "")
+	// egui.InsertNode(pTree, "", "n3", "Сведения", "", nil, nil, "")
+	// egui.InsertNode(pTree, "n3", "n3", "Документы", "", nil, nil, "")
 }
 
 func fldOnClick(p []string) string {
