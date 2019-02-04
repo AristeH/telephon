@@ -1,7 +1,7 @@
 package main
 
 import (
-	//"Telephon/obrabotki"
+	"Telephon/obrabotki"
 
 	"Telephon/config"
 
@@ -34,7 +34,7 @@ func main() {
 	//	fmt.Println(err)
 	//	ref.People{}.Load("//FIRST/First-0бщая/1c/Сергей Щ/обработки зуп30/uu/sotr.json", db)
 	//	ref.Post{}.Load("//FIRST/First-0бщая/1c/Сергей Щ/обработки зуп30/uu/dolg.json", db)
-  // obrabotki.LoadDepartment("//FIRST/First-0бщая/1c/Сергей Щ/обработки зуп30/uu/podr.json")
+   obrabotki.LoadDepartment("//FIRST/First-0бщая/1c/Сергей Щ/обработки зуп30/uu/ПодразделенияОрганизаций.json")
 
 
 	if egui.Init(app.GuiInit) != 0 {

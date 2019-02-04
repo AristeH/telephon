@@ -6,7 +6,7 @@ type Department struct {
 	Name   string `json:"Наименование"`
 	Code   string `json:"Код"`
 	Parent string `json:"Родитель"`
-	WeithB string `json:"Order"`
+	WeithB string `json:"Уровень"`
 }
 
 // Departments список подразделений
