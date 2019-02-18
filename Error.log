@@ -1,0 +1,13 @@
+Error BASE/1004  No exported method: DRAW
+Called from ->DRAW(0)
+Called from source\winapi\hownbtn.prg->HOWNBUTTON:PAINT(251)
+Called from source\winapi\hownbtn.prg->HOWNBUTTON:ONEVENT(140)
+Called from ->HWG_ACTIVATEMAINWINDOW(0)
+Called from source\winapi\hwindow.prg->HMAINWINDOW:ACTIVATE(383)
+Called from source\guiserver.prg->ACTMAINWND(258)
+Called from source\guiserver.prg->TIMERFUNC(1597)
+Called from source\guiserver.prg->MAIN(119)
+
+HWGUI 2.22 Build 2 Unicode
+Date:02/14/19
+Time:18:37:28

@@ -16,6 +16,7 @@ type Config struct {
 	DB                              *sql.DB
 	PFontMain, PFontMenu, PFontText *egui.Font
 	GuiInit                         string
+	Path                            string
 }
 
 // Parametrs  создание подключения к БД
@@ -53,6 +54,7 @@ func SetParametrs() {
 		FontMenu  XFont  `xml:"fontmenu"`
 		FontText  XFont  `xml:"fonttext"`
 		DB        DB     `xml:"db"`
+		Path      string     `xml:"path"`
 	}
 
 	var pIni = &Ini{}
@@ -103,6 +105,8 @@ func SetParametrs() {
 
 	db, _ := sql.Open(pIni.DB.Name, pIni.DB.Path)
 	Parametrs.DB = db
+
+	Parametrs.Path = pIni.Path
 }
 
 func getxml(sPath string, pXml interface{}) string {

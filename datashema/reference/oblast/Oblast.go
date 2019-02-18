@@ -11,7 +11,8 @@ func (s Oblast) CreateTable() string {
 	return `
 	CREATE TABLE OBLAST (
 		ID CHAR(36),
-		NAME CHAR(100)
+		NAME CHAR(100),
+		CONSTRAINT OBLAST_PK PRIMARY KEY (ID)
 	);
 	
  `
