@@ -1,7 +1,7 @@
 package main
 
 import (
-//	"Telephon/obrabotki/loadzup"
+	"Telephon/obrabotki/loadzup"
 	"Telephon/datashema/interval"
 	"Telephon/config"
 	"Telephon/forms"
@@ -24,7 +24,7 @@ func main() {
 	if egui.Init(config.Parametrs.GuiInit) != 0 {
 		return
 	}
-	//loadzup.LoadZUP()
+	loadzup.LoadZUP()
 	forms.MainForm(100, 100, 800, 700, "Телефоны")
 	egui.Exit()
 }
