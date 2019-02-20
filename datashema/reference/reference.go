@@ -1,14 +1,14 @@
 package reference
 
 import (
-	"Telephon/datashema/reference/operator"
 	"Telephon/config"
+	"Telephon/datashema/reference/codetel"
 	"Telephon/datashema/reference/department"
 	"Telephon/datashema/reference/hierarchy"
 	"Telephon/datashema/reference/oblast"
+	"Telephon/datashema/reference/operator"
 	"Telephon/datashema/reference/people"
-	"Telephon/datashema/reference/post"	
-	"Telephon/datashema/reference/codetel"
+	"Telephon/datashema/reference/post"
 
 	"fmt"
 	"strings"
@@ -32,14 +32,18 @@ func (s reference) GetFields(name string) string {
 // InitRef создание не существующих справочников
 func InitRef() {
 	db := config.Parametrs.DB
+	err1 := db.Ping()
+	if err1 != nil {
+		fmt.Println(err1)
+	}
 	elements := map[string]string{
 		"OBLAST":     oblast.Oblast{}.CreateTable(),
 		"PEOPLE":     people.People{}.CreateTable(),
 		"DEPARTMENT": department.Department{}.CreateTable(),
 		"POST":       post.Post{}.CreateTable(),
-		"HIERARCHY":  hierarchy.Hierarchy{}.CreateTable(),		
-		"CODETEL":  codetel.Codetel{}.CreateTable(),	
-		"OPERATOR":  operator.Operator{}.CreateTable(),
+		"HIERARCHY":  hierarchy.Hierarchy{}.CreateTable(),
+		"CODETEL":    codetel.Codetel{}.CreateTable(),
+		"OPERATOR":   operator.Operator{}.CreateTable(),
 	}
 	var (
 		name string

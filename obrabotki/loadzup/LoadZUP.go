@@ -258,7 +258,7 @@ func LoadZUP() {
 		fmt.Println("File:", file)
 		switch file {
 		case "1_ДолжностиОрганизаций.json":
-			//loadPost(path1)
+		//	loadPost(path1)
 		case "2_ПодразделенияОрганизаций.json":
 			//loadDepartment(path1)
 		case "3_ДополнительныеНачисленияОрганизаций.json":
@@ -268,13 +268,13 @@ func LoadZUP() {
 		case "5_УдержанияОрганизаций.json":
 			//loadDepartment(path1)
 		case "6_ФизическиеЛица.json":
-			//loadPeople(path1)
+		//+	loadPeople(path1)
 		case "7_ПриемНаРаботуВОрганизацию.json":
-			//loadpersonnelEmployment(path1)
+		//	loadpersonnelEmployment(path1)
 		case "8_КадровоеПеремещениеОрганизаций.json":
-			//loadpersonnelMovement(path1)
+		//	loadpersonnelMovement(path1)
 		case "9_УвольнениеИзОрганизаций.json":
-			loadpersonnelDismissal(path1)
+		//	loadpersonnelDismissal(path1)
 		}
 		return nil
 	})

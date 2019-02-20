@@ -17,6 +17,7 @@ type Config struct {
 	PFontMain, PFontMenu, PFontText *egui.Font
 	GuiInit                         string
 	Path                            string
+	Pathdb                              string
 }
 
 // Parametrs  создание подключения к БД
@@ -103,20 +104,24 @@ func SetParametrs() {
 		Parametrs.PFontText = Parametrs.PFontMain
 	}
 
-	db, _ := sql.Open(pIni.DB.Name, pIni.DB.Path)
+	db, err := sql.Open(pIni.DB.Name, pIni.DB.Path)
+	if err != nil {
+		fmt.Printf("error : %v", err)
+	}
 	Parametrs.DB = db
-
+	Parametrs.Pathdb = pIni.DB.Path
+ 
 	Parametrs.Path = pIni.Path
 }
 
-func getxml(sPath string, pXml interface{}) string {
+func getxml(sPath string, pXML interface{}) string {
 
 	data, err := ioutil.ReadFile(sPath)
 	if err != nil {
 		return fmt.Sprintf("error reading file: %v", err)
 	}
 
-	err = xml.Unmarshal([]byte(data), pXml)
+	err = xml.Unmarshal([]byte(data), pXML)
 	if err != nil {
 		return fmt.Sprintf("unmarshal error: %v", err)
 	}

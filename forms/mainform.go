@@ -33,7 +33,7 @@ func MainForm(wx, wy, ww, wh int, wtitle string) {
 }
 
 func fsett3(p []string) string {
-	personnel.Sotrform(100, 100, 800, 700, "Сотрудники")
+	personnel.Personnelform(100, 100, 800, 700, "Сотрудники")
 	return ""
 }
 

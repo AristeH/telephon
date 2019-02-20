@@ -1,22 +1,22 @@
 package interval
 
 import (
-	"Telephon/datashema/interval/personnel"
 	"Telephon/config"
+	"Telephon/datashema/interval/personnel"
 
 	"fmt"
 	"strings"
 )
 
-
-
-
 // InitInterval создание не существующих справочников
 func InitInterval() {
 	db := config.Parametrs.DB
+	err1 := db.Ping()
+	if err1 != nil {
+		fmt.Println(err1)
+	}
 	elements := map[string]string{
-		"PERSONEL":     personnel.Personnel{}.CreateTable(),
-
+		"PERSONEL": personnel.Personnel{}.CreateTable(),
 	}
 	var (
 		name string
